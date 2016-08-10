@@ -1,0 +1,70 @@
+<!doctype html>
+<html ng-app="my-app">
+<head>
+    <title>指令之间交互</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+     <div>
+         <person eat>人类--吃饭</person>
+     </div>
+     <div>
+         <person eat jump>人类--吃饭+跳动</person>
+     </div>
+     <div>
+         <person eat jump smail>人类--吃饭+跳动+唱歌</person>
+     </div>
+    
+    <script type="text/javascript">
+        var app = angular.module('my-app', []);
+        app.directive('person', function(){
+            return {
+                scope: {}, //创建独立的作用域
+                restrict: 'AE',
+                controller: function ($scope){//暴露public方法，供外部调用
+                    $scope.abilities = [];
+                    this.addeat = function (){
+                        $scope.abilities.push('eat');
+                    };
+                    this.addjump = function (){
+                        $scope.abilities.push('jump');
+                    };
+                    this.addsmail = function(){
+                        $scope.abilities.push('smail');
+                    };
+                },
+                link: function (scope, element, attr){//处理指令内部的事情
+                    element.bind('mouseenter', function(){
+                        console.log(scope.abilities);
+                    });
+                }
+            };
+        });
+        app.directive('eat', function(){
+            return {
+                require: '^person', //eat指令依赖于person指令
+                link: function (scope, element, attr, personCtrl){
+                    personCtrl.addeat();
+                }
+            };
+        });
+        app.directive('jump', function(){
+            return {
+                require: '^person',
+                link: function (scope, element, attr, personCtrl){
+                    personCtrl.addjump();
+                }
+            };
+        });
+        app.directive('smail', function(){
+            return {
+                require: '^person',
+                link: function (scope, element, attr, personCtrl){
+                    personCtrl.addsmail();
+                }
+            };
+        });
+    </script>
+</body>
+</html>
