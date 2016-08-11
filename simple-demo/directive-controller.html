@@ -1,0 +1,44 @@
+<!doctype html>
+<html ng-app="my-app">
+<head>
+    <title>directive and controller</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js">    </script>
+</head>
+
+<body>
+    <div ng-controller="myCtrl">
+        <loader load="loadData()">slider loading~~</loader>
+    </div>
+    <div ng-controller="myCtrl2">
+        <loader load="loadData2()">slider loading~~</loader>
+    </div>
+    
+    <script type="text/javascript">
+        var app = angular.module('my-app', []);
+        app.controller('myCtrl', function($scope){
+            $scope.loadData = function (){
+                console.log('loading~~~');
+            };
+        });
+        app.controller('myCtrl2', function($scope){
+            $scope.loadData2 = function (){
+                console.log('loading2222~~~');
+            };
+        });
+        
+        app.directive('loader', function(){
+            return{
+                restrict: 'E',
+                link: function (scope, element, attr){
+                    element.bind('mouseenter', function (event){
+//                        scope.loadData();
+//                        scope.$apply('loadData()');
+                        scope.$apply(attr.load);
+                    });
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>
