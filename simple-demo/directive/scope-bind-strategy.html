@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="my-app">
+<head>
+    <title>scope的绑定策略</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+     
+    <div ng-controller="myController">
+        <drink flavor="{{ctrlFlavor}}"></drink>
+    </div>
+    
+    <script type="text/javascript">
+        var app = angular.module('my-app', []);
+        app.controller('myController', function ($scope){
+            $scope.ctrlFlavor = '百威';
+        });
+        app.directive('drink', function (){
+            return {
+//                scope: {}, //独立scope，使指令之间互相独立
+                restrict: 'AE',
+                template: '<div>{{flavor}}</div>',
+                link: function (scope, element, attrs){
+                    scope.flavor = attrs.flavor;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

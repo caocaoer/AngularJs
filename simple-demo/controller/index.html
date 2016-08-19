@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="my-app">
+<head>
+    <title>controller</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js">    </script>
+</head>
+
+<body>
+    <div ng-controller="myController">
+        <!--   first method   -->
+        <p>Hello {{person.name}}!!</p>
+        <!--   second method    -->
+        <p ng-bind="person.name"></p>
+    </div>
+    
+    <script type="text/javascript">
+        var app = angular.module('my-app', []);
+        app.controller('myController', function($scope){
+            $scope.person = {
+                name: 'caocao'
+            };
+        });        
+    </script>
+</body>
+</html>

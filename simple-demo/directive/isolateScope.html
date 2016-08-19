@@ -1,0 +1,27 @@
+<!doctype html>
+<html ng-app="my-app">
+<head>
+    <title>独立scope</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+     
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+    
+    <script type="text/javascript">
+        var app = angular.module('my-app', []);
+        app.directive('hello', function (){
+            return {
+                scope: {}, //独立scope，使指令之间互相独立
+                restrict: 'AE',
+                template: '<div><input type="text" ng-model="userName">{{userName}}</div>',
+                replace: true
+            }
+        });
+    </script>
+</body>
+</html>

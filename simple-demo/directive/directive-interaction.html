@@ -7,13 +7,13 @@
 
 <body>
      <div>
-         <person eat>人类--吃饭</person>
+         <person eat>person--eat</person>
      </div>
      <div>
-         <person eat jump>人类--吃饭+跳动</person>
+         <person eat jump>person--eat+jump</person>
      </div>
      <div>
-         <person eat jump smail>人类--吃饭+跳动+唱歌</person>
+         <person eat jump smile>person--eat+jump+smile</person>
      </div>
     
     <script type="text/javascript">
@@ -24,14 +24,14 @@
                 restrict: 'AE',
                 controller: function ($scope){//暴露public方法，供外部调用
                     $scope.abilities = [];
-                    this.addeat = function (){
+                    this.eat = function (){
                         $scope.abilities.push('eat');
                     };
-                    this.addjump = function (){
+                    this.jump = function (){
                         $scope.abilities.push('jump');
                     };
-                    this.addsmail = function(){
-                        $scope.abilities.push('smail');
+                    this.smile = function(){
+                        $scope.abilities.push('smile');
                     };
                 },
                 link: function (scope, element, attr){//处理指令内部的事情
@@ -45,7 +45,7 @@
             return {
                 require: '^person',
                 link: function (scope, element, attr, personCtrl){
-                    personCtrl.addeat();
+                    personCtrl.eat();
                 }
             };
         });
@@ -53,15 +53,15 @@
             return {
                 require: '^person',
                 link: function (scope, element, attr, personCtrl){
-                    personCtrl.addjump();
+                    personCtrl.jump();
                 }
             };
         });
-        app.directive('smail', function(){
+        app.directive('smile', function(){
             return {
                 require: '^person',
                 link: function (scope, element, attr, personCtrl){
-                    personCtrl.addsmail();
+                    personCtrl.smile();
                 }
             };
         });
